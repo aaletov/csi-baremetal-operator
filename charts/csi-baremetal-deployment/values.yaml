@@ -94,6 +94,7 @@ driver:
       tag: v3.1.0
     args:
       # https://github.com/kubernetes-csi/external-provisioner#command-line-options
+      enableCapacity: true
       timeout: 30s
       retryIntervalStart: 1s
       retryIntervalMax: 5m

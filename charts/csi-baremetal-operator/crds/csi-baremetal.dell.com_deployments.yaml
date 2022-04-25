@@ -120,6 +120,8 @@ spec:
                             args:
                               description: Arguments to the entrypoint.
                               properties:
+                                enableCapacity:
+                                  type: boolean
                                 retryIntervalMax:
                                   type: string
                                 retryIntervalStart:
@@ -277,8 +279,7 @@ spec:
                         - level
                         type: object
                       podSecurityPolicy:
-                        description: PodSecurityPolicy encapsulates information about
-                          pod security policy
+                        description: PodSecurityPolicy encapsulates information about pod security policy
                         properties:
                           enable:
                             type: boolean
@@ -322,6 +323,8 @@ spec:
                             args:
                               description: Arguments to the entrypoint.
                               properties:
+                                enableCapacity:
+                                  type: boolean
                                 retryIntervalMax:
                                   type: string
                                 retryIntervalStart:
@@ -556,8 +559,7 @@ spec:
                     - enable
                     type: object
                   podSecurityPolicy:
-                    description: PodSecurityPolicy encapsulates information about
-                      pod security policy
+                    description: PodSecurityPolicy encapsulates information about pod security policy
                     properties:
                       enable:
                         type: boolean

@@ -210,6 +210,7 @@ func createControllerContainers(csi *csibaremetalv1.Deployment) []corev1.Contain
 					fmt.Sprintf("--retry-interval-start=%v", provisioner.Args.RetryIntervalStart),
 					fmt.Sprintf("--retry-interval-max=%v", provisioner.Args.RetryIntervalMax),
 					fmt.Sprintf("--worker-threads=%v", provisioner.Args.WorkerThreads),
+					ConditionalSprint("--enable-capacity", provisioner.Args.EnableCapacity),
 				}...,
 			),
 			Env: []corev1.EnvVar{
@@ -272,4 +273,12 @@ func createControllerSecurityContext(ctx *components.SecurityContext) *corev1.Po
 		RunAsNonRoot: ctx.RunAsNonRoot,
 		RunAsUser:    ctx.RunAsUser,
 	}
+}
+
+func ConditionalSprint(value string, condition bool) string {
+	var toReturn string = ""
+	if condition {
+		toReturn = value
+	}
+	return toReturn
 }
