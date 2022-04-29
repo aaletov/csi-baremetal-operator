@@ -99,6 +99,7 @@ driver:
       retryIntervalStart: 1s
       retryIntervalMax: 5m
       workerThreads: 100
+      capacityOwnerrefLevel: 2
     resources:
       limits:
         cpu:

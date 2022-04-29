@@ -210,11 +210,18 @@ func createControllerContainers(csi *csibaremetalv1.Deployment) []corev1.Contain
 					fmt.Sprintf("--retry-interval-start=%v", provisioner.Args.RetryIntervalStart),
 					fmt.Sprintf("--retry-interval-max=%v", provisioner.Args.RetryIntervalMax),
 					fmt.Sprintf("--worker-threads=%v", provisioner.Args.WorkerThreads),
+					fmt.Sprintf("--capacity-ownerref-level=%v", provisioner.Args.CapacityOwnerrefLevel),
 					ConditionalSprint("--enable-capacity", provisioner.Args.EnableCapacity),
 				}...,
 			),
 			Env: []corev1.EnvVar{
 				{Name: "ADDRESS", Value: "/csi/csi.sock"},
+				{Name: "NAMESPACE", ValueFrom: &corev1.EnvVarSource{
+					FieldRef: &corev1.ObjectFieldSelector{APIVersion: "v1", FieldPath: "metadata.namespace"},
+				}},
+				{Name: "POD_NAME", ValueFrom: &corev1.EnvVarSource{
+					FieldRef: &corev1.ObjectFieldSelector{APIVersion: "v1", FieldPath: "metadata.name"},
+				}},
 			},
 			Resources: common.ConstructResourceRequirements(provisioner.Resources),
 			VolumeMounts: []corev1.VolumeMount{
