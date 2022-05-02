@@ -6,7 +6,7 @@ spec:
   attachRequired: false
   # pass pod info to NodePublishRequest
   podInfoOnMount: true
-  # storageCapacity: true
+  storageCapacity: true
   volumeLifecycleModes:
     - Persistent
     - Ephemeral
