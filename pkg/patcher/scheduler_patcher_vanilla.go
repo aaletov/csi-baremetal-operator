@@ -103,14 +103,6 @@ func createVanillaConfig(csi *csibaremetalv1.Deployment) (*corev1.ConfigMap, err
 kind: Policy
 extenders:
   - urlPrefix: "http://127.0.0.1:%s"
-    filterVerb: filter
-    prioritizeVerb: prioritize
-    weight: 1
-    #bindVerb: bind
-    enableHttps: false
-    nodeCacheCapable: false
-    ignorable: true
-    httpTimeout: 15000000000
 `, csi.Spec.Scheduler.ExtenderPort)
 
 	vanillaConfig :=
@@ -130,14 +122,6 @@ clientConnection:
 kind: KubeSchedulerConfiguration
 extenders:
   - urlPrefix: "http://127.0.0.1:%s"
-    filterVerb: filter
-    prioritizeVerb: prioritize
-    weight: 1
-    #bindVerb: bind
-    enableHTTPS: false
-    nodeCacheCapable: false
-    ignorable: true
-    httpTimeout: 15s
 leaderElection:
   leaderElect: true
 clientConnection:
