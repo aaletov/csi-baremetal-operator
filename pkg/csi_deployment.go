@@ -66,45 +66,6 @@ func NewCSIDeployment(clientSet kubernetes.Clientset, client client.Client,
 			Clientset: &clientSet,
 			Entry:     log.WithField(constant.CSIName, "controller"),
 		},
-		extender: SchedulerExtender{
-			Clientset: &clientSet,
-			Entry:     log.WithField(constant.CSIName, "extender"),
-			PodSecurityPolicyVerifier: securityverifier.NewPodSecurityPolicyVerifier(
-				validator.NewValidator(rbac.NewValidator(
-					client,
-					log.WithField(constant.CSIName, "rbacExtenderValidator"),
-					rbac.NewMatcher()),
-				),
-				eventRecorder,
-				matchPodSecurityPolicyTemplate,
-				log.WithField(constant.CSIName, "extender"),
-			),
-			SecurityContextConstraintsVerifier: securityverifier.NewSecurityContextConstraintsVerifier(
-				validator.NewValidator(rbac.NewValidator(
-					client,
-					log.WithField(constant.CSIName, "rbacExtenderValidator"),
-					rbac.NewMatcher()),
-				),
-				eventRecorder,
-				matchSecurityContextConstraintsPolicies,
-				log.WithField(constant.CSIName, "extender"),
-			),
-		},
-		patcher: patcher.SchedulerPatcher{
-			Clientset: &clientSet,
-			Log:       log.WithField(constant.CSIName, "patcher"),
-			Client:    client,
-			PodSecurityPolicyVerifier: securityverifier.NewPodSecurityPolicyVerifier(
-				validator.NewValidator(rbac.NewValidator(
-					client,
-					log.WithField(constant.CSIName, "rbacPatcherValidator"),
-					rbac.NewMatcher()),
-				),
-				eventRecorder,
-				matchPodSecurityPolicyTemplate,
-				log.WithField(constant.CSIName, "patcher"),
-			),
-		},
 		nodeController: NodeController{
 			Clientset: &clientSet,
 			Entry:     log.WithField(constant.CSIName, "nodeController"),
