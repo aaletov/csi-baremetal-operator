@@ -26,8 +26,6 @@ import (
 type CSIDeployment struct {
 	node                     *node.Node
 	controller               Controller
-	extender                 SchedulerExtender
-	patcher                  patcher.SchedulerPatcher
 	nodeController           NodeController
 	nodeOperationsController *nodeoperations.Controller
 }
@@ -92,14 +90,6 @@ func (c *CSIDeployment) Update(ctx context.Context, csi *csibaremetalv1.Deployme
 		return err
 	}
 
-	if err := c.extender.Update(ctx, csi, scheme); err != nil {
-		return err
-	}
-
-	if err := c.patcher.Update(ctx, csi, scheme); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -115,11 +105,6 @@ func (c *CSIDeployment) ReconcileNodes(ctx context.Context, csi *csibaremetalv1.
 // Uninstall cleans CSI
 func (c *CSIDeployment) Uninstall(ctx context.Context, csi *csibaremetalv1.Deployment) error {
 	var errMsgs []string
-
-	err := c.patcher.Uninstall(ctx, csi)
-	if err != nil {
-		errMsgs = append(errMsgs, err.Error())
-	}
 
 	err = c.node.Uninstall(ctx, csi)
 	if err != nil {
