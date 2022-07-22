@@ -203,15 +203,17 @@ func createControllerContainers(csi *csibaremetalv1.Deployment) []corev1.Contain
 					"--csi-address=$(ADDRESS)",
 					"--extra-create-metadata",
 					"--feature-gates=Topology=true",
+					"--capacity-ownerref-level=1",
+					"--enable-capacity",
+					"--node-deployment",
+					"--strict-topology",
 				},
 				[]string{
 					// map helm params to csi-provisioner args
 					fmt.Sprintf("--timeout=%v", provisioner.Args.Timeout),
 					fmt.Sprintf("--retry-interval-start=%v", provisioner.Args.RetryIntervalStart),
 					fmt.Sprintf("--retry-interval-max=%v", provisioner.Args.RetryIntervalMax),
-					fmt.Sprintf("--worker-threads=%v", provisioner.Args.WorkerThreads),
-					fmt.Sprintf("--capacity-ownerref-level=%v", provisioner.Args.CapacityOwnerrefLevel),
-					ConditionalSprint("--enable-capacity", provisioner.Args.EnableCapacity),
+					fmt.Sprintf("--worker-threads=%v", provisioner.Args.WorkerThreads)
 				}...,
 			),
 			Env: []corev1.EnvVar{
@@ -221,6 +223,9 @@ func createControllerContainers(csi *csibaremetalv1.Deployment) []corev1.Contain
 				}},
 				{Name: "POD_NAME", ValueFrom: &corev1.EnvVarSource{
 					FieldRef: &corev1.ObjectFieldSelector{APIVersion: "v1", FieldPath: "metadata.name"},
+				}},
+				{Name: "NODE_NAME", } ValueFrom: &corev1.EnvVarSource{
+					FieldRef: &corev1.ObjectFieldSelector{APIVersion: "v1", FieldPath: "spec.nodeName"},
 				}},
 			},
 			Resources: common.ConstructResourceRequirements(provisioner.Resources),

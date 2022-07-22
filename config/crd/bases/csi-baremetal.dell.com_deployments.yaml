@@ -120,10 +120,6 @@ spec:
                             args:
                               description: Arguments to the entrypoint.
                               properties:
-                                capacityOwnerrefLevel:
-                                  type: integer
-                                enableCapacity:
-                                  type: boolean
                                 retryIntervalMax:
                                   type: string
                                 retryIntervalStart:
@@ -325,10 +321,6 @@ spec:
                             args:
                               description: Arguments to the entrypoint.
                               properties:
-                                capacityOwnerrefLevel:
-                                  type: integer
-                                enableCapacity:
-                                  type: boolean
                                 retryIntervalMax:
                                   type: string
                                 retryIntervalStart:

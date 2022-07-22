@@ -33,6 +33,4 @@ type args struct {
 	RetryIntervalStart string `json:"retryIntervalStart,omitempty"`
 	RetryIntervalMax   string `json:"retryIntervalMax,omitempty"`
 	WorkerThreads      int    `json:"workerThreads,omitempty"`
-	EnableCapacity		 bool   `json:"enableCapacity,omitempty"`
-	CapacityOwnerrefLevel int `json:"capacityOwnerrefLevel,omitempty"`
 }

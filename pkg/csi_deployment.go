@@ -16,7 +16,6 @@ import (
 	securityverifier "github.com/dell/csi-baremetal-operator/pkg/feature/security_verifier"
 	"github.com/dell/csi-baremetal-operator/pkg/node"
 	"github.com/dell/csi-baremetal-operator/pkg/nodeoperations"
-	"github.com/dell/csi-baremetal-operator/pkg/patcher"
 	"github.com/dell/csi-baremetal-operator/pkg/validator"
 	"github.com/dell/csi-baremetal-operator/pkg/validator/rbac"
 	"github.com/dell/csi-baremetal/pkg/events"
@@ -106,7 +105,7 @@ func (c *CSIDeployment) ReconcileNodes(ctx context.Context, csi *csibaremetalv1.
 func (c *CSIDeployment) Uninstall(ctx context.Context, csi *csibaremetalv1.Deployment) error {
 	var errMsgs []string
 
-	err = c.node.Uninstall(ctx, csi)
+	err := c.node.Uninstall(ctx, csi)
 	if err != nil {
 		errMsgs = append(errMsgs, err.Error())
 	}
